@@ -6,7 +6,7 @@ const { Schema } = mongoose;
 const projectSchema = new Schema({
   title: { type: String, required: true },
   imageUrl: {
-    type: stringifyError,
+    type: String,
     required: true,
     default: "/placeholder.jpg",
   },
