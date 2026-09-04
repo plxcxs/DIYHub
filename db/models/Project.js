@@ -1,0 +1,27 @@
+import mongoose from "mongoose";
+import { stringifyError } from "next/dist/shared/lib/utils";
+
+const { Schema } = mongoose;
+
+const projectSchema = new Schema({
+  title: { type: String, required: true },
+  imageUrl: {
+    type: stringifyError,
+    required: true,
+    default: "/placeholder.jpg",
+  },
+  complexity: {
+    type: String,
+    required: true,
+    enum: ["Beginner", "Intermediate", "Advanced"],
+  },
+  duration: { type: String, required: true },
+  description: { type: String },
+  materials: { type: String },
+  steps: { type: [String] },
+});
+
+const Project =
+  mongoose.models.Product || mongoose.model("Project", projectSchema);
+
+export default Project;
