@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { stringifyError } from "next/dist/shared/lib/utils";
 
 const { Schema } = mongoose;
 
