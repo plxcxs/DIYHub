@@ -22,6 +22,6 @@ const projectSchema = new Schema({
 });
 
 const Project =
-  mongoose.models.Product || mongoose.model("Project", projectSchema);
+  mongoose.models.Project || mongoose.model("Project", projectSchema);
 
 export default Project;
