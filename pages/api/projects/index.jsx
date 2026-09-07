@@ -8,6 +8,7 @@ export default async function handler(request, response) {
       const projects = await Project.find();
       return response.status(200).json(projects);
     } catch (error) {
+      console.log(error);
       return response.status(500).json({ message: "error fetching projects" });
     }
   } else {

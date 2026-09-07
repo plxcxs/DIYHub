@@ -1,7 +1,10 @@
+import ProjectList from "./ProjectList";
+
 export default function HomePage() {
   return (
     <div>
-      <h1>Hello from Next.js</h1>
+      <h1>DIY Hub</h1>
+      <ProjectList />
     </div>
   );
 }
