@@ -6,7 +6,7 @@ export default function ProjectList() {
   const { data: projects, error, isLoading } = useSWR("/api/projects", fetcher);
   if (error) return <p>Error loading projects.</p>;
   if (isLoading) return <p>Loading...</p>;
-  console.log(projects);
+
   return (
     <>
       {projects.map((project) => {
