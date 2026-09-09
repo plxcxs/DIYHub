@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import ProjectCard from "../ProjectCard";
+
 export default function ProjectList() {
   const fetcher = (...args) =>
     fetch(...args).then((response) => response.json());
@@ -12,7 +13,8 @@ export default function ProjectList() {
       {projects.map((project) => {
         return (
           <ProjectCard
-            key={project.id}
+            id={project._id}
+            key={project._id}
             title={project.title}
             description={project.description}
             image="/woodworking-workshop-table-top-scene-making-wood-joint-diy-concept-70303318.jpg"
