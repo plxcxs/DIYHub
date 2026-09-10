@@ -1,4 +1,4 @@
-import ProjectInfo from "../ProjectInfo";
+import ProjectInfo from "../../components/ProjectInfo";
 
 export default function ProjectDetails() {
   return (
