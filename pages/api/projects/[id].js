@@ -13,7 +13,6 @@ export default async function handler(request, response) {
       }
       response.status(200).json(project);
     } catch (error) {
-      console.error("API Error:", error);
       return response.status(500).json({ message: "error fetching projects" });
     }
   } else {

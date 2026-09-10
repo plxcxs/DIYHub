@@ -18,11 +18,9 @@ export default function ProjectInfo() {
   if (error) return <p>Error loading project u fool</p>;
   if (isLoading) return <p> Loading ... u fool</p>;
   if (!project) return <p>Loading...</p>;
-  console.log(project);
-
   return (
     <StyledDiv>
-      <p>{project.title} </p>
+      <h2>{project.title} </h2>
       <Image
         src="/woodworking-workshop-table-top-scene-making-wood-joint-diy-concept-70303318.jpg"
         alt="picture"
