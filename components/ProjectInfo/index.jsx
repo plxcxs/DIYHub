@@ -17,7 +17,7 @@ export default function ProjectInfo() {
   } = useSWR(id ? `/api/projects/${id}` : null, fetcher);
   if (error) return <p>Error loading project u fool</p>;
   if (isLoading) return <p> Loading ... u fool</p>;
-  if (!project) return <p>Loading...</p>;
+  if (!project) return <p>Project not found</p>;
   return (
     <StyledDiv>
       <h2>{project.title} </h2>
