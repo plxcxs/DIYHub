@@ -1,6 +1,10 @@
 import Image from "next/image";
 import useSWR from "swr";
 import { useRouter } from "next/router";
+import styled from "styled-components";
+import Steps from "../Steps";
+import Materials from "../Materials";
+import Link from "next/link";
 const fetcher = (...args) => fetch(...args).then((response) => response.json());
 export default function ProjectInfo() {
   const router = useRouter();
@@ -17,26 +21,41 @@ export default function ProjectInfo() {
   console.log(project);
 
   return (
-    <>
+    <StyledDiv>
       <p>{project.title} </p>
-      <Image src={project.imageUrl} alt="picture" width={200} height={200} />
+      <Image
+        src="/woodworking-workshop-table-top-scene-making-wood-joint-diy-concept-70303318.jpg"
+        alt="picture"
+        width={200}
+        height={200}
+      />
+
       <p>{project.description}</p>
       <p>{project.complexity}</p>
       <p>{project.duration}</p>
-      <p>
-        {project.materials.map((material, i) => {
-          return <div key={i}>material:{material}</div>;
-        })}
-      </p>
-      <p>
-        {project.steps.map((step) => {
-          return (
-            <div key={step.id}>
-              step {step.id}:{step.description}
-            </div>
-          );
-        })}
-      </p>
-    </>
+
+      <section>{<Materials project={project} />}</section>
+      <StyledStepSection>
+        <Steps project={project} />
+      </StyledStepSection>
+
+      <Link href={"/"}>
+        <button>Back</button>
+      </Link>
+    </StyledDiv>
   );
 }
+
+const StyledDiv = styled.div`
+  width: 20vh;
+  margin-left: 40%;
+  border: 1px solid black;
+  background-color: #7676ed;
+  /* display: flexbox; */
+`;
+
+const StyledStepSection = styled.section`
+  background-color: aliceblue;
+  padding: 1vh;
+  border: 2px solid yellow;
+`;
