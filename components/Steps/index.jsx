@@ -1,10 +1,10 @@
 export default function Steps({ project }) {
   return (
     <>
-      {project.steps.map((step) => {
+      {project.steps.map((step, index) => {
         return (
-          <p key={step.id}>
-            step {step.id}:{step.description}
+          <p key={index}>
+            step {index + 1}:{step.description}
           </p>
         );
       })}

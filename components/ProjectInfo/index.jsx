@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Steps from "../Steps";
 import Materials from "../Materials";
 import Link from "next/link";
-const fetcher = (...args) => fetch(...args).then((response) => response.json());
+
 export default function ProjectInfo() {
   const router = useRouter();
   const { id } = router.query;
@@ -14,7 +14,7 @@ export default function ProjectInfo() {
     data: project,
     error,
     isLoading,
-  } = useSWR(id ? `/api/projects/${id}` : null, fetcher);
+  } = useSWR(id ? `/api/projects/${id}` : null);
   if (error) return <p>Error loading project u fool</p>;
   if (isLoading) return <p> Loading ... u fool</p>;
   if (!project) return <p>Project not found</p>;
