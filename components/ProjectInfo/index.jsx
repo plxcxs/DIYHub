@@ -42,7 +42,6 @@ export default function ProjectInfo() {
 }
 
 const StyledDiv = styled.div`
-  width: 20vh;
   width: 100%;
   border: 1px solid black;
   background-color: #7676ed;
