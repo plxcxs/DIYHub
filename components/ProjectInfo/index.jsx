@@ -18,21 +18,20 @@ export default function ProjectInfo() {
   if (error) return <p>Error loading project u fool</p>;
   if (isLoading) return <p> Loading ... u fool</p>;
   if (!project) return <p>Project not found</p>;
+  console.log(project);
   return (
     <StyledDiv>
       <h2>{project.title} </h2>
-      <Image
-        src="/woodworking-workshop-table-top-scene-making-wood-joint-diy-concept-70303318.jpg"
-        alt="picture"
-        width={200}
-        height={200}
-      />
+
+      <Image src={project.imageUrl} alt="picture" width={200} height={200} />
 
       <p>{project.description}</p>
       <p>{project.complexity}</p>
       <p>{project.duration}</p>
 
-      <section>{<Materials project={project} />}</section>
+      <section>
+        <Materials project={project} />
+      </section>
       <StyledStepSection>
         <Steps project={project} />
       </StyledStepSection>
@@ -46,14 +45,13 @@ export default function ProjectInfo() {
 
 const StyledDiv = styled.div`
   width: 20vh;
-  margin-left: 40%;
+  width: 100%;
   border: 1px solid black;
   background-color: #7676ed;
-  /* display: flexbox; */
 `;
 
 const StyledStepSection = styled.section`
   background-color: aliceblue;
-  padding: 1vh;
+  padding: 1vw;
   border: 2px solid yellow;
 `;

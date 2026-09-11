@@ -15,7 +15,7 @@ export default function ProjectList() {
             key={project._id}
             title={project.title}
             description={project.description}
-            image="/woodworking-workshop-table-top-scene-making-wood-joint-diy-concept-70303318.jpg"
+            image={project.imageUrl}
             duration={project.duration}
             complexity={project.complexity}
           />

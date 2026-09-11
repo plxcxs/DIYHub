@@ -9,11 +9,14 @@ export default async function handler(request, response) {
       await dbConnect();
       const project = await Project.findById(id);
       if (!project) {
-        return response.status(404).json({ status: "not found ugh" });
+        return response.status(404).json({ message: "not found ugh" });
       }
       response.status(200).json(project);
     } catch (error) {
-      return response.status(500).json({ message: "error fetching projects" });
+      console.error("API Error:", error);
+      return response
+        .status(500)
+        .json({ message: "error fetching project, we are sorry" });
     }
   } else {
     return response.status(405).json({ message: "method not allowed fool" });
