@@ -23,7 +23,7 @@ export default function ProjectInfo() {
     <StyledDiv>
       <h2>{project.title} </h2>
 
-      <Image src={project.imageUrl} alt="picture" width={200} height={200} />
+      <Image src={project.imageUrl} alt={project.title} width={200} height={200} />
 
       <p>{project.description}</p>
       <p>{project.complexity}</p>
