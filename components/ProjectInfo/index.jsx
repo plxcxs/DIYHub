@@ -36,9 +36,7 @@ export default function ProjectInfo() {
         <Steps project={project} />
       </StyledStepSection>
 
-      <Link href={"/"}>
-        <button>Back</button>
-      </Link>
+      <Link href={"/"}>Back</Link>
     </StyledDiv>
   );
 }
