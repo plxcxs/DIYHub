@@ -1,10 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 export default function ProjectCard({
   title,
   image,
   description,
   complexity,
   duration,
+  id,
 }) {
   return (
     <>
@@ -14,6 +16,7 @@ export default function ProjectCard({
         <p>{description} </p>
         <div>{complexity}</div>
         <div>{duration}</div>
+        <Link href={`/projects/${id}`}>Details</Link>
       </section>
     </>
   );

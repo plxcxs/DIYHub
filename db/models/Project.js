@@ -2,6 +2,14 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
+const stepSchema = new Schema(
+  {
+    id: { type: String, required: true },
+    description: { type: String, required: true },
+  },
+  { _id: false }
+);
+
 const projectSchema = new Schema({
   title: { type: String, required: true },
   imageUrl: {
@@ -16,8 +24,8 @@ const projectSchema = new Schema({
   },
   duration: { type: String, required: true },
   description: { type: String },
-  materials: { type: String },
-  steps: { type: [String] },
+  materials: { type: [String], default: [] },
+  steps: { type: [stepSchema], default: [] },
 });
 
 const Project =
