@@ -1,4 +1,3 @@
-import { staticPageGenerationTimeout } from "@/next.config";
 
 export default function Steps({ project }) {
   return (
