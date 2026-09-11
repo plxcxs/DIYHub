@@ -16,9 +16,7 @@ export default function ProjectCard({
         <p>{description} </p>
         <div>{complexity}</div>
         <div>{duration}</div>
-        <Link href={`/projects/${id}`}>
-          <button>Details</button>
-        </Link>
+        <Link href={`/projects/${id}`}>Details</Link>
       </section>
     </>
   );
