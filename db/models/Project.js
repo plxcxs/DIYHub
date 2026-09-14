@@ -26,6 +26,7 @@ const projectSchema = new Schema({
   description: { type: String },
   materials: { type: [String], default: [] },
   steps: { type: [stepSchema], default: [] },
+  categories: { type: String, required: true },
 });
 
 const Project =

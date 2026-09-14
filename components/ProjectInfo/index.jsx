@@ -23,15 +23,20 @@ export default function ProjectInfo() {
     <StyledDiv>
       <h2>{project.title} </h2>
 
-      <Image src={project.imageUrl} alt={project.title} width={200} height={200} />
+      <Image
+        src={project.imageUrl}
+        alt={project.title}
+        width={200}
+        height={200}
+      />
 
       <p>{project.description}</p>
       <p>{project.complexity}</p>
       <p>{project.duration}</p>
 
-      <section>
+      <StyledMaterialsSection>
         <Materials project={project} />
-      </section>
+      </StyledMaterialsSection>
       <StyledStepSection>
         <Steps project={project} />
       </StyledStepSection>
@@ -40,15 +45,18 @@ export default function ProjectInfo() {
     </StyledDiv>
   );
 }
-
+const StyledMaterialsSection = styled.section`
+  background-color: #6f95b9;
+  border: 1px solid black;
+`;
 const StyledDiv = styled.div`
   width: 100%;
   border: 1px solid black;
-  background-color: #7676ed;
+  background-color: #6f95b9;
 `;
 
 const StyledStepSection = styled.section`
-  background-color: aliceblue;
+  background-color: #6f95b9;
   padding: 1vw;
-  border: 2px solid yellow;
+  border: 1px solid black;
 `;
