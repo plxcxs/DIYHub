@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import useSWR from "swr";
+import { mutate } from "swr";
 import { useState } from "react";
 
 export default function CreateProject({ isOpen }) {
@@ -8,8 +8,8 @@ export default function CreateProject({ isOpen }) {
   const [categories, setCategories] = useState("");
   const [complexity, setComplexity] = useState("");
   const [duration, setDuration] = useState("");
-
-  const { mutate } = useSWR("/api/projects");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -19,20 +19,26 @@ export default function CreateProject({ isOpen }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
+
     if (response.ok) {
-      mutate();
-      alert("porject created");
+      await mutate("/api/projects");
+      setSuccessMessage("project created");
+
+      setTimeout(() => setSuccessMessage(""), 3000);
       setTitle("");
       setDescription("");
       setCategories("");
       setComplexity("");
       setDuration("");
     } else {
-      alert("sorry wasnt able to create project, please try again");
+      setErrorMessage("sorry wasnt able to create project, please try again");
+      setTimeout(() => setErrorMessage(""), 3000);
     }
   }
   return (
     <>
+      {errorMessage && <p>{errorMessage}</p>}
+      {successMessage && <p>{successMessage}</p>}
       <StyledForm action="submit" $isOpen={isOpen} onSubmit={handleSubmit}>
         <h2>Create Project</h2>
         <StyledTextArea
