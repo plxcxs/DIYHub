@@ -11,7 +11,7 @@ const stepSchema = new Schema(
 );
 
 const projectSchema = new Schema({
-  title: { type: String, required: true },
+  title: { type: String, minlength: 3, required: true },
   imageUrl: {
     type: String,
     required: true,
