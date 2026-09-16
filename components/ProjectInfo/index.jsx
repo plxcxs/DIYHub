@@ -50,9 +50,14 @@ const StyledMaterialsSection = styled.section`
   border: 1px solid black;
 `;
 const StyledDiv = styled.div`
-  width: 100%;
+  margin: 0 auto;
+  width: 320px;
   border: 1px solid black;
   background-color: #6f95b9;
+  @media (min-width: 768px) {
+    width: 600px;
+    padding: 1.5rem;
+  }
 `;
 
 const StyledStepSection = styled.section`

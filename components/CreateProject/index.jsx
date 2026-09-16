@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { mutate } from "swr";
 import { useState } from "react";
 
-export default function CreateProject({ isOpen }) {
+export default function CreateProject({ isOpen, project }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -11,16 +11,21 @@ export default function CreateProject({ isOpen }) {
     const formData = new FormData(event.target);
     const formObject = Object.fromEntries(formData.entries());
 
+    const url = project ? `/api/projects/${project.id}` : "/api/projects";
+    const method = project ? "PUT" : "POST";
+
     try {
-      const response = await fetch("/api/projects", {
-        method: "POST",
+      const response = await fetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formObject),
       });
 
       if (response.ok) {
         await mutate("/api/projects");
-        setSuccessMessage("project created");
+        setSuccessMessage(
+          project ? "project update successful" : "project created"
+        );
 
         setTimeout(() => setSuccessMessage(""), 3000);
         event.target.reset();
@@ -41,13 +46,14 @@ export default function CreateProject({ isOpen }) {
       {errorMessage && <p>{errorMessage}</p>}
       {successMessage && <p>{successMessage}</p>}
       <StyledForm action="submit" $isOpen={isOpen} onSubmit={handleSubmit}>
-        <h2>Create Project</h2>
+        <h2>{project ? "Edit Project" : "Create Project"}</h2>
         <StyledSection>
           <label htmlFor="title">Title</label>
           <StyledTextArea
             name="title"
             id="title"
             placeholder="title"
+            defaultValue={project?.title || ""}
             required
           ></StyledTextArea>
         </StyledSection>
@@ -57,13 +63,19 @@ export default function CreateProject({ isOpen }) {
             name="description"
             id="description"
             placeholder="description"
+            defaultValue={project?.description || ""}
             required
           ></StyledTextArea>
         </StyledSection>
 
         <StyledSection>
           <label htmlFor="categories">Categories</label>
-          <select name="categories" id="categories" defaultValue="" required>
+          <select
+            name="categories"
+            id="categories"
+            defaultValue={project?.categories || ""}
+            required
+          >
             <option value="">please choose a category</option>
             <option value="Woodworking">Woodworking</option>
             <option value="Electronics">Electronics</option>
@@ -78,6 +90,7 @@ export default function CreateProject({ isOpen }) {
           <StyledTextArea
             name="duration"
             id="duration"
+            defaultValue={project?.duration || ""}
             placeholder="duration"
             required
           ></StyledTextArea>
@@ -95,7 +108,7 @@ export default function CreateProject({ isOpen }) {
           </select>
         </StyledSection>
 
-        <button>Create</button>
+        <button>{project ? "Edit" : "Create"}</button>
       </StyledForm>
     </>
   );
