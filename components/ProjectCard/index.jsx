@@ -11,7 +11,7 @@ export default function ProjectCard({
   return (
     <>
       <section>
-        <h3>{title} </h3>
+        <h2>{title} </h2>
         <Image alt="image" src={image} width={200} height={200} />
         <p>{description} </p>
         <div>{complexity}</div>
