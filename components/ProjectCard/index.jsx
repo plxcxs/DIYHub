@@ -9,6 +9,7 @@ export default function ProjectCard({
   description,
   complexity,
   duration,
+  categories,
   id,
   isEdit,
   onEdit,
@@ -24,8 +25,11 @@ export default function ProjectCard({
           key={isEdit ? `edit-${id}` : "create"}
           isOpen={isEdit}
           project={
-            isEdit ? { title, description, complexity, duration, id } : null
+            isEdit
+              ? { title, description, complexity, duration, id, categories }
+              : null
           }
+          onEdit={onEdit}
         />
         <StyledImage alt="image" src={image} width={200} height={200} />
         <StyledContent>

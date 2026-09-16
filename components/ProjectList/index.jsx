@@ -34,6 +34,7 @@ export default function ProjectList() {
               duration={project.duration}
               complexity={project.complexity}
               isEdit={editId === project._id}
+              categories={project.categories}
               onEdit={() =>
                 setEditId(editId === project._id ? null : project._id)
               }

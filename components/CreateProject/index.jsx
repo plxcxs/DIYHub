@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { mutate } from "swr";
 import { useState } from "react";
 
-export default function CreateProject({ isOpen, project }) {
+export default function CreateProject({ isOpen, project, onEdit }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -27,7 +27,10 @@ export default function CreateProject({ isOpen, project }) {
           project ? "project update successful" : "project created"
         );
 
-        setTimeout(() => setSuccessMessage(""), 3000);
+        setTimeout(() => {
+          setSuccessMessage("");
+          onEdit();
+        }, 3000);
         event.target.reset();
       } else {
         setErrorMessage("sorry wasnt able to create project, please try again");
@@ -41,6 +44,7 @@ export default function CreateProject({ isOpen, project }) {
       setTimeout(() => setErrorMessage(""), 3000);
     }
   }
+  console.log("categories:", project?.categories, typeof project?.categories);
   return (
     <>
       {errorMessage && <p>{errorMessage}</p>}
@@ -73,7 +77,11 @@ export default function CreateProject({ isOpen, project }) {
           <select
             name="categories"
             id="categories"
-            defaultValue={project?.categories || ""}
+            defaultValue={
+              Array.isArray(project?.categories)
+                ? project.categories[0]
+                : project?.categories || ""
+            }
             required
           >
             <option value="">please choose a category</option>
@@ -98,7 +106,12 @@ export default function CreateProject({ isOpen, project }) {
 
         <StyledSection>
           <label htmlFor="complexity">Complexity</label>
-          <select id="complexity" name="complexity" defaultValue="" required>
+          <select
+            id="complexity"
+            name="complexity"
+            defaultValue={project?.complexity || ""}
+            required
+          >
             <option value="" disabled>
               Please select a Complexity
             </option>
