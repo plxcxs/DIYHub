@@ -1,14 +1,15 @@
 import useSWR from "swr";
 import ProjectCard from "../ProjectCard";
-import CreateProject from "../CreateProject";
 import { useState } from "react";
 import styled from "styled-components";
+import ProjectForm from "../ProjectForm";
+
 export default function ProjectList() {
   const [isOpen, setIsOpen] = useState(false);
   const [editId, setEditId] = useState(false);
   const { data: projects, error, isLoading } = useSWR("/api/projects");
 
-  function handleOpen() {
+  function handleToggleView() {
     setIsOpen(!isOpen);
     setEditId(null);
   }
@@ -18,10 +19,10 @@ export default function ProjectList() {
 
   return (
     <StyledListSection>
-      <StyledCreateButton onClick={handleOpen}>
+      <StyledCreateButton onClick={handleToggleView}>
         {!isOpen ? "Create Project" : "Back"}
       </StyledCreateButton>
-      <CreateProject isOpen={isOpen} />
+      <ProjectForm isOpen={isOpen} />
       <div>
         {projects.map((project) => {
           return (

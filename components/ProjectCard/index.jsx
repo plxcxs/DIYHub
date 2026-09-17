@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
+import ProjectForm from "../ProjectForm";
+import { breakpoints } from "@/styles";
 
-import CreateProject from "../CreateProject";
 export default function ProjectCard({
   title,
   image,
@@ -21,7 +22,7 @@ export default function ProjectCard({
           <h2>{title} </h2>
           <StyledEditButton onClick={onEdit}>Edit</StyledEditButton>
         </StyledHeader>
-        <CreateProject
+        <ProjectForm
           key={isEdit ? `edit-${id}` : "create"}
           isOpen={isEdit}
           project={
@@ -31,7 +32,12 @@ export default function ProjectCard({
           }
           onEdit={onEdit}
         />
-        <StyledImage alt="image" src={image} width={200} height={200} />
+        <StyledImage
+          alt={`image of ${title}`}
+          src={image}
+          width={200}
+          height={200}
+        />
         <StyledContent>
           <p>{description} </p>
           <div>{complexity}</div>
@@ -43,14 +49,14 @@ export default function ProjectCard({
   );
 }
 const StyledContent = styled.div`
-  @media (min-width: 768px) {
+  @media (min-width: ${breakpoints.tablet}) {
     font-size: 2rem;
   }
 `;
 const StyledImage = styled(Image)`
   padding: 5px;
   border-radius: 10%;
-  @media (min-width: 768px) {
+  @media (min-width: ${breakpoints.tablet}) {
     width: 300px;
     height: 300px;
   }
@@ -67,7 +73,7 @@ const StyledHeader = styled.header`
 
 const StyledEditButton = styled.button`
   padding: 0.3rem 0.8rem;
-  @media (min-width: 768px) {
+  @media (min-width: ${breakpoints.tablet}) {
     font-size: 1.3rem;
   }
 `;
@@ -76,7 +82,7 @@ const StyledArticle = styled.article`
   width: 320px;
   margin: 50px;
 
-  @media (min-width: 768px) {
+  @media (min-width: ${breakpoints.tablet}) {
     width: 600px;
     padding: 1.5rem;
   }

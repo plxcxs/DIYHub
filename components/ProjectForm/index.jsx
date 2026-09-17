@@ -2,7 +2,16 @@ import styled, { css } from "styled-components";
 import { mutate } from "swr";
 import { useState } from "react";
 
-export default function CreateProject({ isOpen, project, onEdit }) {
+const categoryOptions = [
+  "Woodworking",
+  "Electronics",
+  "Crafts",
+  "Home Improvement",
+  "Garden",
+  "Upcycling",
+];
+const complexityOptions = ["Beginner", "Intermediate", "Advanced"];
+export default function ProjectForm({ isOpen, project, onEdit }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -33,7 +42,9 @@ export default function CreateProject({ isOpen, project, onEdit }) {
         }, 3000);
         event.target.reset();
       } else {
-        setErrorMessage("sorry wasnt able to create project, please try again");
+        setErrorMessage(
+          "sorry wasn't able to create the project, please try again"
+        );
         setTimeout(() => setErrorMessage(""), 3000);
       }
     } catch (error) {
@@ -44,7 +55,7 @@ export default function CreateProject({ isOpen, project, onEdit }) {
       setTimeout(() => setErrorMessage(""), 3000);
     }
   }
-  console.log("categories:", project?.categories, typeof project?.categories);
+
   return (
     <>
       {errorMessage && <p>{errorMessage}</p>}
@@ -85,12 +96,13 @@ export default function CreateProject({ isOpen, project, onEdit }) {
             required
           >
             <option value="">please choose a category</option>
-            <option value="Woodworking">Woodworking</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Crafts">Crafts</option>
-            <option value="Home Improvement">Home Improvement</option>
-            <option value="Garden">Garden</option>
-            <option value="Upcycling">Upcycling</option>
+            {categoryOptions.map((category) => {
+              return (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              );
+            })}
           </select>
         </StyledSection>
         <StyledSection>
@@ -115,9 +127,13 @@ export default function CreateProject({ isOpen, project, onEdit }) {
             <option value="" disabled>
               Please select a Complexity
             </option>
-            <option value="Beginner">Beginner</option>
-            <option value="Intermediate">Intermediate</option>
-            <option value="Advanced">Advanced</option>
+            {complexityOptions.map((complexity) => {
+              return (
+                <option key={complexity} value={complexity}>
+                  {complexity}
+                </option>
+              );
+            })}
           </select>
         </StyledSection>
 
