@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Steps from "../Steps";
 import Materials from "../Materials";
 import Link from "next/link";
+import { breakpoints } from "@/styles";
 
 export default function ProjectInfo() {
   const router = useRouter();
@@ -50,9 +51,14 @@ const StyledMaterialsSection = styled.section`
   border: 1px solid black;
 `;
 const StyledDiv = styled.div`
-  width: 100%;
+  margin: 0 auto;
+  width: 320px;
   border: 1px solid black;
   background-color: #6f95b9;
+  @media (min-width: ${breakpoints.tablet}) {
+    width: 600px;
+    padding: 1.5rem;
+  }
 `;
 
 const StyledStepSection = styled.section`

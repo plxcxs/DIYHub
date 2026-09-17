@@ -18,6 +18,23 @@ export default async function handler(request, response) {
         .status(500)
         .json({ message: "error fetching project, we are sorry" });
     }
+  } else if (request.method === "PUT") {
+    try {
+      await dbConnect();
+      const updateProject = await Project.findByIdAndUpdate(id, request.body, {
+        returnDocument: "after",
+        runValidators: true,
+      });
+      if (!updateProject) {
+        return response.status(404).json({ message: "not found" });
+      }
+      return response.status(200).json(updateProject);
+    } catch (error) {
+      console.error("API Error:", error);
+      {
+        return response.status(500).json({ message: "error updating project" });
+      }
+    }
   } else {
     return response.status(405).json({ message: "method not allowed fool" });
   }

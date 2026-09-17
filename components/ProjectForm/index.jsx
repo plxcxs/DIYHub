@@ -2,7 +2,16 @@ import styled, { css } from "styled-components";
 import { mutate } from "swr";
 import { useState } from "react";
 
-export default function CreateProject({ isOpen }) {
+const categoryOptions = [
+  "Woodworking",
+  "Electronics",
+  "Crafts",
+  "Home Improvement",
+  "Garden",
+  "Upcycling",
+];
+const complexityOptions = ["Beginner", "Intermediate", "Advanced"];
+export default function ProjectForm({ isOpen, project, onEdit }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -11,21 +20,31 @@ export default function CreateProject({ isOpen }) {
     const formData = new FormData(event.target);
     const formObject = Object.fromEntries(formData.entries());
 
+    const url = project ? `/api/projects/${project.id}` : "/api/projects";
+    const method = project ? "PUT" : "POST";
+
     try {
-      const response = await fetch("/api/projects", {
-        method: "POST",
+      const response = await fetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formObject),
       });
 
       if (response.ok) {
         await mutate("/api/projects");
-        setSuccessMessage("project created");
+        setSuccessMessage(
+          project ? "project update successful" : "project created"
+        );
 
-        setTimeout(() => setSuccessMessage(""), 3000);
+        setTimeout(() => {
+          setSuccessMessage("");
+          if (onEdit) onEdit();
+        }, 3000);
         event.target.reset();
       } else {
-        setErrorMessage("sorry wasnt able to create project, please try again");
+        setErrorMessage(
+          "sorry wasn't able to create the project, please try again"
+        );
         setTimeout(() => setErrorMessage(""), 3000);
       }
     } catch (error) {
@@ -36,18 +55,20 @@ export default function CreateProject({ isOpen }) {
       setTimeout(() => setErrorMessage(""), 3000);
     }
   }
+
   return (
     <>
       {errorMessage && <p>{errorMessage}</p>}
       {successMessage && <p>{successMessage}</p>}
       <StyledForm action="submit" $isOpen={isOpen} onSubmit={handleSubmit}>
-        <h2>Create Project</h2>
+        <h2>{project ? "Edit Project" : "Create Project"}</h2>
         <StyledSection>
           <label htmlFor="title">Title</label>
           <StyledTextArea
             name="title"
             id="title"
             placeholder="title"
+            defaultValue={project?.title || ""}
             required
           ></StyledTextArea>
         </StyledSection>
@@ -57,20 +78,31 @@ export default function CreateProject({ isOpen }) {
             name="description"
             id="description"
             placeholder="description"
+            defaultValue={project?.description || ""}
             required
           ></StyledTextArea>
         </StyledSection>
 
         <StyledSection>
           <label htmlFor="categories">Categories</label>
-          <select name="categories" id="categories" defaultValue="" required>
+          <select
+            name="categories"
+            id="categories"
+            defaultValue={
+              Array.isArray(project?.categories)
+                ? project.categories[0]
+                : project?.categories || ""
+            }
+            required
+          >
             <option value="">please choose a category</option>
-            <option value="Woodworking">Woodworking</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Crafts">Crafts</option>
-            <option value="Home Improvement">Home Improvement</option>
-            <option value="Garden">Garden</option>
-            <option value="Upcycling">Upcycling</option>
+            {categoryOptions.map((category) => {
+              return (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              );
+            })}
           </select>
         </StyledSection>
         <StyledSection>
@@ -78,6 +110,7 @@ export default function CreateProject({ isOpen }) {
           <StyledTextArea
             name="duration"
             id="duration"
+            defaultValue={project?.duration || ""}
             placeholder="duration"
             required
           ></StyledTextArea>
@@ -85,17 +118,26 @@ export default function CreateProject({ isOpen }) {
 
         <StyledSection>
           <label htmlFor="complexity">Complexity</label>
-          <select id="complexity" name="complexity" defaultValue="" required>
+          <select
+            id="complexity"
+            name="complexity"
+            defaultValue={project?.complexity || ""}
+            required
+          >
             <option value="" disabled>
               Please select a Complexity
             </option>
-            <option value="Beginner">Beginner</option>
-            <option value="Intermediate">Intermediate</option>
-            <option value="Advanced">Advanced</option>
+            {complexityOptions.map((complexity) => {
+              return (
+                <option key={complexity} value={complexity}>
+                  {complexity}
+                </option>
+              );
+            })}
           </select>
         </StyledSection>
 
-        <button>Create</button>
+        <button>{project ? "Edit" : "Create"}</button>
       </StyledForm>
     </>
   );
