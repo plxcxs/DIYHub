@@ -22,16 +22,21 @@ export default function ProjectCard({
           <h2>{title} </h2>
           <StyledEditButton onClick={onEdit}>Edit</StyledEditButton>
         </StyledHeader>
-        <ProjectForm
-          key={isEdit ? `edit-${id}` : "create"}
-          isOpen={isEdit}
-          project={
-            isEdit
-              ? { title, description, complexity, duration, id, categories }
-              : null
-          }
-          onEdit={onEdit}
-        />
+        {isEdit && (
+          <ProjectForm
+            isOpen
+            project={{
+              title,
+              description,
+              complexity,
+              duration,
+              id,
+              categories,
+            }}
+            onEdit={onEdit}
+          />
+        )}
+
         <StyledImage
           alt={`image of ${title}`}
           src={image}

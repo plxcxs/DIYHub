@@ -3,6 +3,7 @@ import ProjectCard from "../ProjectCard";
 import { useState } from "react";
 import styled from "styled-components";
 import ProjectForm from "../ProjectForm";
+import { breakpoints } from "@/styles";
 
 export default function ProjectList() {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +48,7 @@ export default function ProjectList() {
   );
 }
 const StyledCreateButton = styled.button`
-  @media (min-width: 768px) {
+  @media (min-width: ${breakpoints.tablet}) {
     font-size: 1.3rem;
   }
 `;

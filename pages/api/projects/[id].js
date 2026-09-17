@@ -18,12 +18,11 @@ export default async function handler(request, response) {
         .status(500)
         .json({ message: "error fetching project, we are sorry" });
     }
-  }
-  if (request.method === "PUT") {
+  } else if (request.method === "PUT") {
     try {
       await dbConnect();
       const updateProject = await Project.findByIdAndUpdate(id, request.body, {
-        after: true,
+        returnDocument: "after",
         runValidators: true,
       });
       if (!updateProject) {

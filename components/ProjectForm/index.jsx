@@ -38,7 +38,7 @@ export default function ProjectForm({ isOpen, project, onEdit }) {
 
         setTimeout(() => {
           setSuccessMessage("");
-          onEdit();
+          if (onEdit) onEdit();
         }, 3000);
         event.target.reset();
       } else {
