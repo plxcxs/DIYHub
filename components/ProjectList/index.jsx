@@ -40,6 +40,7 @@ export default function ProjectList() {
   }
 
   function handleDeleteToggle(id) {
+    setDeleteError("")
     setDeleteId(deleteId === id ? null : id);
   }
 
