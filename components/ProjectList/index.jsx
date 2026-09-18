@@ -65,7 +65,6 @@ export default function ProjectList() {
           {projects.map((project) => {
             return (
               <>
-                {" "}
                 <StyledCardGrid>
                   <ProjectCard
                     id={project._id}
