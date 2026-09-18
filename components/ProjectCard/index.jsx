@@ -14,13 +14,14 @@ export default function ProjectCard({
   id,
   isEdit,
   onEdit,
+  onDelete,
 }) {
   return (
     <>
       <StyledArticle>
         <StyledHeader>
-          <h2>{title} </h2>
-          <StyledEditButton onClick={onEdit}>Edit</StyledEditButton>
+          <StyledH2>{title} </StyledH2>
+          <StyledButton onClick={onEdit}>Edit</StyledButton>
         </StyledHeader>
         {isEdit && (
           <ProjectForm
@@ -47,12 +48,20 @@ export default function ProjectCard({
           <p>{description} </p>
           <div>{complexity}</div>
           <div>{duration}</div>
-          <Link href={`/projects/${id}`}>Details</Link>
         </StyledContent>
+        <StyledFooter>
+          <StyledLink href={`/projects/${id}`}>Details</StyledLink>
+          <StyledButton onClick={onDelete}>delete</StyledButton>
+        </StyledFooter>
       </StyledArticle>
     </>
   );
 }
+
+const StyledH2 = styled.h2`
+  font-size: 2rem;
+`;
+
 const StyledContent = styled.div`
   @media (min-width: ${breakpoints.tablet}) {
     font-size: 2rem;
@@ -66,17 +75,21 @@ const StyledImage = styled(Image)`
     height: 300px;
   }
 `;
+const StyledLink = styled(Link)`
+  font-size: 2rem;
+`;
 
 const StyledHeader = styled.header`
+  padding: 10px;
   border-radius: 10px;
   display: flex;
   align-items: center;
-  background-color: #c2d6da;
+  background-color: #a7bbbe;
   flex-direction: row;
   justify-content: space-between;
 `;
 
-const StyledEditButton = styled.button`
+const StyledButton = styled.button`
   padding: 0.3rem 0.8rem;
   @media (min-width: ${breakpoints.tablet}) {
     font-size: 1.3rem;
@@ -86,9 +99,22 @@ const StyledEditButton = styled.button`
 const StyledArticle = styled.article`
   width: 320px;
   margin: 50px;
-
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: #4a87d5;
   @media (min-width: ${breakpoints.tablet}) {
     width: 600px;
     padding: 1.5rem;
   }
+`;
+
+const StyledFooter = styled.footer`
+  padding: 10px;
+  height: 4rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  background-color: #c0b0e5;
+  flex-direction: row;
+  justify-content: space-between;
 `;

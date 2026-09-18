@@ -35,6 +35,19 @@ export default async function handler(request, response) {
         return response.status(500).json({ message: "error updating project" });
       }
     }
+  } else if (request.method === "DELETE") {
+    try {
+      await dbConnect();
+      await Project.findByIdAndDelete(id);
+      response
+        .status(200)
+        .json({ status: `Project ${id} succesfully deleted` });
+    } catch (error) {
+      console.error("API Error:", error);
+      return response
+        .status(500)
+        .json({ message: "error deleting project sorry" });
+    }
   } else {
     return response.status(405).json({ message: "method not allowed fool" });
   }
