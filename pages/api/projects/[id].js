@@ -39,7 +39,7 @@ export default async function handler(request, response) {
     try {
       await dbConnect();
       await Project.findByIdAndDelete(id);
-      response
+     return response
         .status(200)
         .json({ status: `Project ${id} succesfully deleted` });
     } catch (error) {
