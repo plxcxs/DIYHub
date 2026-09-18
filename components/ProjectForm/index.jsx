@@ -11,6 +11,7 @@ const categoryOptions = [
   "Upcycling",
 ];
 const complexityOptions = ["Beginner", "Intermediate", "Advanced"];
+
 export default function ProjectForm({ isOpen, project, onEdit }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
