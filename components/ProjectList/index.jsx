@@ -20,9 +20,7 @@ export default function ProjectList() {
         method: "DELETE",
       });
       if (response.ok) {
-        mutate(
-          projects.filter((project) => project._id !== deleteId),
-          false
+        mutate(projects.filter((project) => project._id !== deleteId)
         );
         setDeleteId(null);
       } else {
